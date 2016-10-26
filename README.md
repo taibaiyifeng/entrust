@@ -158,8 +158,36 @@ Don't forget to dump composer autoload
 
 ```bash
 composer dump-autoload
-```
+```[Symfony\Component\Debug\Exception\FatalErrorException]
+  Class name must be a valid object or a string
 
+解决办法：
+
+\vendor\zizaco\entrust\src\commands\MigrationCommand.php文件中第84行。
+
+将
+
+get'auth.providers.users.table';
+get'auth.providers.users.model';
+改为
+get'auth.table';
+get'auth.model';
+
+即可。
+
+laravel5.2使用entrust出现错误：This cache store does not support tagging
+
+entrust："zizaco/entrust": "5.2.x-dev" 
+
+原因：
+
+    This is not a bug, file and database drivers do not support tags as documented in the official Laravel documentation. See https://laravel.com/docs/5.2/cache#cache-tags
+
+文件和数据库驱动不支持标记。
+
+解决办法：
+
+修改.env文件：CACHE_DRIVER=array 
 **And you are ready to go.**
 
 #### Soft Deleting
